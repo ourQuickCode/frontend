@@ -16,7 +16,6 @@ import {
  * Show donation information, all and how many
  */
 export function* cardCounters() {
-  console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
   try {
     const url = "http://localhost:5000/api/post/";
     const { data } = yield call(axios.get, url);
@@ -59,9 +58,9 @@ export function* cardDonationPagination({ filters }) {
  * @param   {object}   action.payload Data to take the id of the requested institution
  * @returns {iterator}
  */
-export function* cardDonationOne({ id } = {}) {
+export function* cardDonationOne({ id }) {
   try {
-    const url = `/api/donations/${id}`;
+    const url = `http://localhost:5000/api/post/${id}`;
     const { data } = yield call(axios.get, url);
     yield put(donationCardGetOneSuccess(data));
   } catch (error) {

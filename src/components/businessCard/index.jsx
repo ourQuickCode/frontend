@@ -1,11 +1,12 @@
 import React, { Fragment } from "react";
+import "./styles.css";
 
 const BusinessCard = () => {
   return (
     <Fragment>
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-sm-6 col-md">
+      <div className="container">
+        <div className="row">
+          <div className="col-12 col-sm-6 col-md">
             <h1>Hola mundo</h1>
             <p>
               Los mexicas (náhuatl mēxihcah [meː'ʃiʔkaʔ] 'mexicas'2​) —llamados
@@ -26,7 +27,7 @@ const BusinessCard = () => {
               México agrupados territorialmente en altépetl.
             </p>
           </div>
-          <div class="col-12 col-sm-6 col-md">
+          <div className="col-12 col-sm-6 col-md">
             <h1>Hola mundo</h1>
             <p>
               Los mexicas (náhuatl mēxihcah [meː'ʃiʔkaʔ] 'mexicas'2​) —llamados
@@ -47,7 +48,7 @@ const BusinessCard = () => {
               México agrupados territorialmente en altépetl.
             </p>
           </div>
-          <div class="col-12 col-sm col-md col-xl-12">
+          <div className="col-12 col-sm col-md col-xl-12">
             <h1>Hola mundo</h1>
             <p>
               Los mexicas (náhuatl mēxihcah [meː'ʃiʔkaʔ] 'mexicas'2​) —llamados
