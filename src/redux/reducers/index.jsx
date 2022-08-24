@@ -1,4 +1,4 @@
 export { reducer as form } from "redux-form";
 export { router } from "./router";
 
-export { card } from "./../../modules/Post/post.redux";
+export { post } from "./../../modules/Post/post.redux";

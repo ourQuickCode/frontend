@@ -1,104 +1,154 @@
-// Type's
-export const CLEAR_STATE_DONATION_CARD = "CLEAR_STATE_DONATION_CARD";
+//----------------------------------------------------------------------
+// Type'
+//----------------------------------------------------------------------
+export const LOAD_ALL_POST_REQUEST = "LOAD_ALL_POST_REQUEST";
+export const LOAD_ALL_POST_SUCCESS = "LOAD_ALL_POST_SUCCESS";
+export const LOAD_ALL_POST_FAILURE = "LOAD_ALL_POST_FAILURE";
 
-export const LOAD_COUNTERS_CARD_REQUEST = "LOAD_COUNTERS_CARD_REQUEST";
-export const LOAD_COUNTERS_CARD_SUCCESS = "LOAD_COUNTERS_CARD_SUCCESS";
-export const LOAD_COUNTERS_CARD_FAILURE = "LOAD_COUNTERS_CARD_FAILURE";
+export const LOAD_ONE_POST_REQUEST = "LOAD_ONE_POST_REQUEST";
+export const LOAD_ONE_POST_SUCCESS = "LOAD_ONE_POST_SUCCESS";
+export const LOAD_ONE_POST_FAILURE = "LOAD_ONE_POST_FAILURE";
 
-export const LOAD_ALL_DONATION_CARD_PAGINATION_REQUEST =
-  "LOAD_ALL_DONATION_CARD_PAGINATION_REQUEST";
-export const LOAD_ALL_DONATION_CARD_PAGINATION_SUCCESS =
-  "LOAD_ALL_DONATION_CARD_PAGINATION_SUCCESS";
-export const LOAD_ALL_DONATION_CARD_PAGINATION_FAILURE =
-  "LOAD_ALL_DONATION_CARD_PAGINATION_FAILURE";
+export const CREATE_POST_REQUEST = "CREATE_POST_REQUEST";
+export const CREATE_POST_SUCCESS = "CREATE_POST_SUCCESS";
+export const CREATE_POST_FAILURE = "CREATE_POST_FAILURE";
 
-export const LOAD_ONE_DONATION_CARD_REQUEST = "LOAD_ONE_DONATION_CARD_REQUEST";
-export const LOAD_ONE_DONATION_CARD_SUCCESS = "LOAD_ONE_DONATION_CARD_SUCCESS";
-export const LOAD_ONE_DONATION_CARD_FAILURE = "LOAD_ONE_DONATION_CARD_FAILURE";
+export const DELETE_POST_REQUEST = "DELETE_POST_REQUEST";
+export const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS";
+export const DELETE_POST_FAILURE = "DELETE_POST_FAILURE";
 
+export const UPDATE_POST_REQUEST = "UPDATE_POST_REQUEST";
+export const UPDATE_POST_SUCCESS = "UPDATE_POST_SUCCESS";
+export const UPDATE_POST_FAILURE = "UPDATE_POST_FAILURE";
+
+export const CONTACT_REQUEST = "CONTACT_REQUEST";
+export const CONTACT_SUCCESS = "CONTACT_SUCCESS";
+export const CONTACT_FAILURE = "CONTACT_FAILURE";
+
+//----------------------------------------------------------------------
 // Action's
-export const clearStateCard = (payload) => ({
-  type: CLEAR_STATE_DONATION_CARD,
+//----------------------------------------------------------------------
+export const loadAllPostRequest = (payload) => ({
+  type: LOAD_ALL_POST_REQUEST,
   payload,
 });
-//--------------------------------
-export const loadCountersCardRequest = (payload) => ({
-  type: LOAD_COUNTERS_CARD_REQUEST,
+export const loadAllPostSuccess = (payload) => ({
+  type: LOAD_ALL_POST_SUCCESS,
   payload,
 });
-export const loadCountersCardSuccess = (payload) => ({
-  type: LOAD_COUNTERS_CARD_SUCCESS,
-  payload,
-});
-export const loadCountersCardFailure = (error) => ({
-  type: LOAD_COUNTERS_CARD_FAILURE,
+export const loadAllPostFailure = (error) => ({
+  type: LOAD_ALL_POST_FAILURE,
   error,
 });
-//--------------------------------
-export const loadAllPaginationCardRequest = (filters) => ({
-  type: LOAD_ALL_DONATION_CARD_PAGINATION_REQUEST,
-  filters,
-});
-export const loadAllPaginationCardSuccess = (payload) => ({
-  type: LOAD_ALL_DONATION_CARD_PAGINATION_SUCCESS,
-  payload,
-});
-export const loadAllPaginationCardFailure = (error) => ({
-  type: LOAD_ALL_DONATION_CARD_PAGINATION_FAILURE,
-  error,
-});
-
-export const donationCardGetOneRequest = (id) => ({
-  type: LOAD_ONE_DONATION_CARD_REQUEST,
+//----------------------------------------------------------------------
+export const loadOnePostRequest = (id) => ({
+  type: LOAD_ONE_POST_REQUEST,
   id,
 });
-export const donationCardGetOneSuccess = (payload) => ({
-  type: LOAD_ONE_DONATION_CARD_SUCCESS,
+export const loadOnePostSuccess = (payload) => ({
+  type: LOAD_ONE_POST_SUCCESS,
   payload,
 });
-export const donationCardGetOneFailure = (error) => ({
-  type: LOAD_ONE_DONATION_CARD_FAILURE,
+export const loadOnePostFailure = (error) => ({
+  type: LOAD_ONE_POST_FAILURE,
+  error,
+});
+//----------------------------------------------------------------------
+export const createPostRequest = (payload) => ({
+  type: CREATE_POST_REQUEST,
+  payload,
+});
+export const createPostSuccess = (payload) => ({
+  type: CREATE_POST_SUCCESS,
+  payload,
+});
+export const createPostFailure = (error) => ({
+  type: CREATE_POST_FAILURE,
+  error,
+});
+//----------------------------------------------------------------------
+export const deletePostRequest = (id) => ({
+  type: DELETE_POST_REQUEST,
+  id,
+});
+export const deletePostSuccess = (payload) => ({
+  type: DELETE_POST_SUCCESS,
+  payload,
+});
+export const deletePostFailure = (error) => ({
+  type: DELETE_POST_FAILURE,
+  error,
+});
+//----------------------------------------------------------------------
+export const updatePostRequest = (id, payload) => ({
+  type: UPDATE_POST_REQUEST,
+  id,
+  payload,
+});
+export const updatePostSuccess = (payload) => ({
+  type: UPDATE_POST_SUCCESS,
+  payload,
+});
+export const updatePostFailure = (error) => ({
+  type: UPDATE_POST_FAILURE,
+  error,
+});
+//----------------------------------------------------------------------
+export const contactRequest = (payload) => ({
+  type: CONTACT_REQUEST,
+  payload,
+});
+export const contactSuccess = (payload) => ({
+  type: CONTACT_SUCCESS,
+  payload,
+});
+export const contactFailure = (error) => ({
+  type: CONTACT_FAILURE,
   error,
 });
 
+//----------------------------------------------------------------------
 // Reducer
+//----------------------------------------------------------------------
 const initialState = {
   list: [],
-  info: [],
   view: {},
-  filters: {},
   loading: false,
   error: null,
 };
 
-export function card(state = initialState, action) {
+export function post(state = initialState, action) {
   switch (action.type) {
-    case LOAD_ALL_DONATION_CARD_PAGINATION_SUCCESS:
+    //----------------------------------------------------------------------
+    case LOAD_ALL_POST_SUCCESS:
       return { ...state, list: { ...action.payload } };
-    case LOAD_COUNTERS_CARD_SUCCESS:
-      return {
-        ...state,
-        error: null,
-        loading: false,
-        info: { ...action.payload },
-      };
-    case LOAD_ONE_DONATION_CARD_SUCCESS:
+    case UPDATE_POST_SUCCESS:
+    case LOAD_ONE_POST_SUCCESS:
       return {
         ...state,
         error: null,
         loading: true,
         view: { ...action.payload },
       };
-    case LOAD_COUNTERS_CARD_FAILURE:
-    case LOAD_ALL_DONATION_CARD_PAGINATION_FAILURE:
-    case LOAD_ONE_DONATION_CARD_FAILURE:
+    case CONTACT_SUCCESS:
+    case CREATE_POST_SUCCESS:
+    case DELETE_POST_SUCCESS:
+      return { ...state };
+    //----------------------------------------------------------------------
+    case LOAD_ALL_POST_FAILURE:
+    case LOAD_ONE_POST_FAILURE:
+    case CREATE_POST_FAILURE:
+    case DELETE_POST_FAILURE:
+    case UPDATE_POST_FAILURE:
       return { ...state, loading: false, error: action.error };
-    case LOAD_COUNTERS_CARD_REQUEST:
-    case LOAD_ALL_DONATION_CARD_PAGINATION_REQUEST:
-    case LOAD_ONE_DONATION_CARD_REQUEST:
+    //----------------------------------------------------------------------
+    case LOAD_ALL_POST_REQUEST:
+    case LOAD_ONE_POST_REQUEST:
+    case CREATE_POST_REQUEST:
+    case DELETE_POST_REQUEST:
+    case UPDATE_POST_REQUEST:
+    case CONTACT_REQUEST:
       return { ...state, loading: true, error: null };
-    case CLEAR_STATE_DONATION_CARD:
-      return initialState;
     default:
       return state;
   }

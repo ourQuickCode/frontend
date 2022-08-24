@@ -1,1 +1,1 @@
-export { cardSagas } from "./../../modules/Post/post.sagas";
+export { postSagas } from "./../../modules/Post/post.sagas";

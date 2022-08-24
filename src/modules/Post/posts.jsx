@@ -1,28 +1,28 @@
 import React, { Fragment, useEffect } from "react";
-import { loadCountersCardRequest } from "./post.redux";
+import { loadAllPostRequest } from "./post.redux";
 import { connect } from "react-redux";
 import Card from "../../components/card";
 
 function Post(props) {
-  const { info } = props;
+  const { list } = props;
 
   useEffect(() => {
-    props.loadCountersCardRequest();
-  }, [props.loadCountersCardRequest]);
+    props.loadAllPostRequest();
+  }, [props.loadAllPostRequest]);
 
   return (
     <Fragment>
-      <Card data={info} />
+      <Card data={list} />
     </Fragment>
   );
 }
 
-const mapStateToProps = ({ card }) => ({
-  info: card.info,
+const mapStateToProps = ({ post }) => ({
+  list: post.list,
 });
 
 const mapDispatchToProps = {
-  loadCountersCardRequest,
+  loadAllPostRequest,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post);

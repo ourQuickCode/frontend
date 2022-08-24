@@ -4,7 +4,6 @@ import "./styles.css";
 
 const Card = (props) => {
   const { data } = props;
-
   return (
     <Fragment>
       <div className="container">

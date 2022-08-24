@@ -1,55 +1,39 @@
 import axios from "axios";
 import { all, takeLatest, call, put } from "redux-saga/effects";
 import {
-  LOAD_COUNTERS_CARD_REQUEST,
-  LOAD_ALL_DONATION_CARD_PAGINATION_REQUEST,
-  LOAD_ONE_DONATION_CARD_REQUEST,
-  loadCountersCardSuccess,
-  loadCountersCardFailure,
-  loadAllPaginationCardSuccess,
-  loadAllPaginationCardFailure,
-  donationCardGetOneSuccess,
-  donationCardGetOneFailure,
+  LOAD_ALL_POST_REQUEST,
+  LOAD_ONE_POST_REQUEST,
+  CREATE_POST_REQUEST,
+  DELETE_POST_REQUEST,
+  UPDATE_POST_REQUEST,
+  CONTACT_REQUEST,
+  contactSuccess,
+  contactFailure,
+  updatePostSuccess,
+  updatePostFailure,
+  deletePostSuccess,
+  deletePostFailure,
+  loadAllPostSuccess,
+  loadAllPostFailure,
+  loadOnePostSuccess,
+  loadOnePostFailure,
+  createPostSuccess,
+  createPostFailure,
 } from "./post.redux";
-
-/**
- * Show donation information, all and how many
- */
-export function* cardCounters() {
-  try {
-    const url = "http://localhost:5000/api/post/";
-    const { data } = yield call(axios.get, url);
-
-    yield put(loadCountersCardSuccess(data));
-  } catch (error) {
-    yield put(loadCountersCardFailure(error));
-  }
-}
-
-/**
- * Help function to filter data
- * @param   {object}   data returns page number for pagination
- */
-function encodeFiltersData(data) {
-  return Object.keys(data)
-    .filter((f) => data[f] !== "" && data[f] !== null)
-    .map((f) => encodeURIComponent(f) + "=" + encodeURIComponent(data[f]))
-    .join("&");
-}
+import Swal from "sweetalert2";
 
 /**
  * Show paged Card donations
  * @returns {iterator}
  */
-export function* cardDonationPagination({ filters }) {
+export function* loadAllPost() {
   try {
-    const filterString = encodeFiltersData(filters);
-    const url = `/api/donations/conekta/card?${filterString}`;
+    const url = "http://localhost:5000/api/post";
     const { data } = yield call(axios.get, url);
 
-    yield put(loadAllPaginationCardSuccess(data));
+    yield put(loadAllPostSuccess(data));
   } catch (error) {
-    yield put(loadAllPaginationCardFailure(error.message));
+    yield put(loadAllPostFailure(error.message));
   }
 }
 
@@ -58,23 +42,105 @@ export function* cardDonationPagination({ filters }) {
  * @param   {object}   action.payload Data to take the id of the requested institution
  * @returns {iterator}
  */
-export function* cardDonationOne({ id }) {
+export function* loadOnePost({ id }) {
   try {
     const url = `http://localhost:5000/api/post/${id}`;
     const { data } = yield call(axios.get, url);
-    yield put(donationCardGetOneSuccess(data));
+    yield put(loadOnePostSuccess(data));
   } catch (error) {
-    yield put(donationCardGetOneFailure(error.message));
+    yield put(loadOnePostFailure(error.message));
   }
 }
 
-export function* cardSagas() {
+export function* createPost({ payload }) {
+  try {
+    const url = "http://localhost:5000/api/post";
+    const { data } = yield call(axios.post, url, payload);
+    yield put(createPostSuccess(data));
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Post publicado correctamente",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  } catch (error) {
+    yield put(createPostFailure(error));
+    console.log(error);
+  }
+}
+
+/**
+ * Show paged Card donations
+ * @returns {iterator}
+ */
+export function* deletePost({ id }) {
+  try {
+    const url = `http://localhost:5000/api/post/${id}`;
+    const { data } = yield call(axios.delete, url);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Post borrrado correctamente",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    yield put(deletePostSuccess(data));
+  } catch (error) {
+    yield put(deletePostFailure(error.message));
+  }
+}
+
+/**
+ * Show paged Card donations
+ * @returns {iterator}
+ */
+export function* updatePost({ id, payload }) {
+  try {
+    const url = `http://localhost:5000/api/post/${id}`;
+    const { data } = yield call(axios.put, url, payload);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Post actualizado correctamente",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    yield put(updatePostSuccess(data));
+  } catch (error) {
+    yield put(updatePostFailure(error.message));
+  }
+}
+
+/**
+ * Show paged Card donations
+ * @returns {iterator}
+ */
+export function* sendContact({ payload }) {
+  console.log(payload);
+  try {
+    const url = `http://localhost:5000/api/contact`;
+    const { data } = yield call(axios.post, url, payload);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Correo enviado correctamente",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    yield put(contactSuccess(data));
+  } catch (error) {
+    yield put(contactFailure(error.message));
+  }
+}
+
+export function* postSagas() {
   yield all([
-    takeLatest(LOAD_COUNTERS_CARD_REQUEST, cardCounters),
-    takeLatest(
-      LOAD_ALL_DONATION_CARD_PAGINATION_REQUEST,
-      cardDonationPagination
-    ),
-    takeLatest(LOAD_ONE_DONATION_CARD_REQUEST, cardDonationOne),
+    takeLatest(LOAD_ALL_POST_REQUEST, loadAllPost),
+    takeLatest(LOAD_ONE_POST_REQUEST, loadOnePost),
+    takeLatest(CREATE_POST_REQUEST, createPost),
+    takeLatest(DELETE_POST_REQUEST, deletePost),
+    takeLatest(UPDATE_POST_REQUEST, updatePost),
+    takeLatest(CONTACT_REQUEST, sendContact),
   ]);
 }

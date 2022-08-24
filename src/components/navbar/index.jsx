@@ -1,37 +1,40 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
-import "./styles.css";
+import { Link, Nav } from "./styles.jsx";
 
 const Navbar = () => {
   return (
     <Fragment>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+      <Nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div>
           <ul className="navbar-nav">
-            <li className="nav-item active">
+            <li>
               <Link to="/" className="nav-link">
-                Home
+                Inicio
               </Link>
             </li>
-            <li className="nav-item">
+            <li>
+              <Link to="/aboutme" className="nav-link">
+                Acerca de mi
+              </Link>
+            </li>
+            <li>
               <Link to="/profile" className="nav-link">
-                Profile
+                Proyectos
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="nav-link">
+                Contáctame
+              </Link>
+            </li>
+            <li>
+              <Link to="/profile" className="nav-link">
+                Blog personal
               </Link>
             </li>
           </ul>
         </div>
-      </nav>
+      </Nav>
     </Fragment>
   );
 };
