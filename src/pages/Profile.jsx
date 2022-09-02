@@ -6,6 +6,7 @@ export const Profile = () => {
   return (
     <Fragment>
       <Form />
+
       <Posts />
     </Fragment>
   );
