@@ -17,4 +17,7 @@ export const Footer = styled.footer`
     text-decoration: none;
     margin: 0px 5px;
   }
+  .fw-bold {
+    margin-left: 5px;
+  }
 `;

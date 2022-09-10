@@ -21,14 +21,6 @@ export const UPDATE_POST_REQUEST = "UPDATE_POST_REQUEST";
 export const UPDATE_POST_SUCCESS = "UPDATE_POST_SUCCESS";
 export const UPDATE_POST_FAILURE = "UPDATE_POST_FAILURE";
 
-export const CONTACT_REQUEST = "CONTACT_REQUEST";
-export const CONTACT_SUCCESS = "CONTACT_SUCCESS";
-export const CONTACT_FAILURE = "CONTACT_FAILURE";
-
-export const SEARCH_REQUEST = "SEARCH_REQUEST";
-export const SEARCH_SUCCESS = "SEARCH_SUCCESS";
-export const SEARCH_FAILURE = "SEARCH_FAILURE";
-
 //----------------------------------------------------------------------
 // Action's
 //----------------------------------------------------------------------
@@ -97,32 +89,6 @@ export const updatePostFailure = (error) => ({
   type: UPDATE_POST_FAILURE,
   error,
 });
-//----------------------------------------------------------------------
-export const contactRequest = (payload) => ({
-  type: CONTACT_REQUEST,
-  payload,
-});
-export const contactSuccess = (payload) => ({
-  type: CONTACT_SUCCESS,
-  payload,
-});
-export const contactFailure = (error) => ({
-  type: CONTACT_FAILURE,
-  error,
-});
-//----------------------------------------------------------------------
-export const searchRequest = (payload) => ({
-  type: SEARCH_REQUEST,
-  payload,
-});
-export const searchSuccess = (payload) => ({
-  type: SEARCH_SUCCESS,
-  payload,
-});
-export const searchFailure = (error) => ({
-  type: SEARCH_FAILURE,
-  error,
-});
 
 //----------------------------------------------------------------------
 // Reducer
@@ -138,7 +104,6 @@ export function post(state = initialState, action) {
   switch (action.type) {
     //----------------------------------------------------------------------
     case LOAD_ALL_POST_SUCCESS:
-    case SEARCH_SUCCESS:
       return { ...state, list: { ...action.payload } };
     case UPDATE_POST_SUCCESS:
     case LOAD_ONE_POST_SUCCESS:
@@ -148,7 +113,6 @@ export function post(state = initialState, action) {
         loading: true,
         view: { ...action.payload },
       };
-    case CONTACT_SUCCESS:
     case CREATE_POST_SUCCESS:
     case DELETE_POST_SUCCESS:
       return { ...state };
@@ -158,7 +122,6 @@ export function post(state = initialState, action) {
     case CREATE_POST_FAILURE:
     case DELETE_POST_FAILURE:
     case UPDATE_POST_FAILURE:
-    case SEARCH_FAILURE:
       return { ...state, loading: false, error: action.error };
     //----------------------------------------------------------------------
     case LOAD_ALL_POST_REQUEST:
@@ -166,8 +129,6 @@ export function post(state = initialState, action) {
     case CREATE_POST_REQUEST:
     case DELETE_POST_REQUEST:
     case UPDATE_POST_REQUEST:
-    case CONTACT_REQUEST:
-    case SEARCH_REQUEST:
       return { ...state, loading: true, error: null };
     default:
       return state;

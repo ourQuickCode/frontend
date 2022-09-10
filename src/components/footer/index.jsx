@@ -136,9 +136,9 @@ const Footer = () => {
             </div>
           </div>
         </section>
-        <div class="text-center p-4 url-text">
+        <div class="text-center p-4 url-text footer-Copyright">
           © 2022 Copyright:
-          <a class="text-reset fw-bold ">orlandoce.com</a>
+          <a class="text-reset fw-bold ">www.orlandoce.com</a>
         </div>
       </FooterStyled>
     </Fragment>

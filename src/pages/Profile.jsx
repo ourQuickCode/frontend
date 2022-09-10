@@ -1,12 +1,11 @@
 import React, { Fragment } from "react";
 import Posts from "./../modules/Post/posts";
-import Form from "./../components/form";
+import Search from "./../components/search";
 
 export const Profile = () => {
   return (
     <Fragment>
-      <Form />
-
+      <Search />
       <Posts />
     </Fragment>
   );

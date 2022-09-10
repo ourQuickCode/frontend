@@ -6,12 +6,6 @@ import {
   CREATE_POST_REQUEST,
   DELETE_POST_REQUEST,
   UPDATE_POST_REQUEST,
-  CONTACT_REQUEST,
-  SEARCH_REQUEST,
-  searchSuccess,
-  searchFailure,
-  contactSuccess,
-  contactFailure,
   updatePostSuccess,
   updatePostFailure,
   deletePostSuccess,
@@ -115,44 +109,6 @@ export function* updatePost({ id, payload }) {
   }
 }
 
-/**
- * Show paged Card donations
- * @returns {iterator}
- */
-export function* sendContact({ payload }) {
-  console.log(payload);
-  try {
-    const url = `http://localhost:5000/api/contact`;
-    const { data } = yield call(axios.post, url, payload);
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "Correo enviado correctamente",
-      showConfirmButton: false,
-      timer: 1500,
-    });
-    yield put(contactSuccess(data));
-  } catch (error) {
-    yield put(contactFailure(error.message));
-  }
-}
-
-/**
- * Show paged Card donations
- * @returns {iterator}
- */
-export function* searchPosts({ payload }) {
-  console.log(payload);
-  try {
-    const url = `http://localhost:5000/api/post/search/posts?search=${payload.search}`;
-    const { data } = yield call(axios.get, url);
-    console.log(data);
-    yield put(searchSuccess(data));
-  } catch (error) {
-    yield put(searchFailure(error.message));
-  }
-}
-
 export function* postSagas() {
   yield all([
     takeLatest(LOAD_ALL_POST_REQUEST, loadAllPost),
@@ -160,7 +116,5 @@ export function* postSagas() {
     takeLatest(CREATE_POST_REQUEST, createPost),
     takeLatest(DELETE_POST_REQUEST, deletePost),
     takeLatest(UPDATE_POST_REQUEST, updatePost),
-    takeLatest(CONTACT_REQUEST, sendContact),
-    takeLatest(SEARCH_REQUEST, searchPosts),
   ]);
 }
